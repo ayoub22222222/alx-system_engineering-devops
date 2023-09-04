@@ -1,2 +1,2 @@
 #!/bin/bash 
-grep '^A'
+grep '^A' /etc/passwd/sshd_config
