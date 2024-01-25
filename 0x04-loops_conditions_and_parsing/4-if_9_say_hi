@@ -8,7 +8,7 @@ do
 	
 	if [ "$num" -eq 9 ]
 	then
-		echo "hi"
+		echo "Hi"
 	fi
 	
 	num=$((num += 1))
