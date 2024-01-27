@@ -2,8 +2,8 @@
 #kill the process id 
 
 while true
-do
-  echo "To infinity and beyond"
-  sleep 2
-  tarp "I am invincible!!!" SIGTERM
+do 
+	echo "To infinity and beyond"
+	sleep 2
+	trap 'echo "I am invincible!!!"' SIGTERM
 done 
