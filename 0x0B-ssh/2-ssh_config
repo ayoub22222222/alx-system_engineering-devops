@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# comment for this task
+
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/school
+  PasswordAuthentication no
