@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# this file is for ...
+ssh -i ~/.ssh/school ubuntu@54.88.85.211
