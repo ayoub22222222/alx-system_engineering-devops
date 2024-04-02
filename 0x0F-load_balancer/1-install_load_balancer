@@ -38,7 +38,7 @@ frontend clickviral-tech-frontend
     default_backend clickviral-tech-backend
 backend clickviral-tech-backend
     balance roundrobin
-    server 529592-web-01 54.88.85.11:80 check
+    server 529592-web-01 54.88.85.211:80 check
     server 529592-web-02 54.242.182.158:80 check
 "
 
