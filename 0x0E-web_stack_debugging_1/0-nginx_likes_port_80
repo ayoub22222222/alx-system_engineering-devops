@@ -6,8 +6,7 @@ if ! grep -q "listen 80 default_server;" /etc/nginx/sites-enabled/default; then
     # Find and replace the line to bind port 80 to all IPv4 addresses in the default site configuration file
     echo "Updating the configuration to bind port 80 to all IPv4 addresses..."
     awk '/^server {/,/^listen \[::\]:80 default_server;/ { if ($0 ~ /^ *listen [[:digit:]]+ default_server;/) 
-print "        listen 80 default_server;"; else print; next } 1' /etc/nginx/sites-enabled/default > 
-/tmp/default.tmp && sudo mv /tmp/default.tmp /etc/nginx/sites-enabled/default
+    print "        listen 80 default_server;"; else print; next } 1' /etc/nginx/sites-enabled/default > /tmp/default.tmp && sudo mv /tmp/default.tmp /etc/nginx/sites-enabled/default
 fi
 
 # Check if another web server like Apache is active and using port 80
