@@ -1,0 +1,2 @@
+./0-nginx_likes_port_80: line 9: syntax error near unexpected token `newline'
+./0-nginx_likes_port_80: line 9: `print "        listen 80 default_server;"; else print; next } 1' /etc/nginx/sites-enabled/default > '
