@@ -1,37 +1,27 @@
 #!/usr/bin/python3
 """
-Script to print hot posts on a given Reddit subreddit.
+    Using Reddit API to get hot posts
 """
-
 import requests
 
 
-def top_ten(subreddit):
-    """Print the titles of the 10 hottest posts on a given subreddit."""
-    # Construct the URL for the subreddit's hot posts in JSON format
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+def recurse(subreddit, hot_list=[], after=""):
+    """Getting all hot posts"""
+    if after is None:
+        return []
 
-    # Define headers for the HTTP request, including User-Agent
-    headers = {
-        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
-    }
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    url += f"?limit=100&after={after}"
+    headers = {'user-agent': 'request'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
-    # Define parameters for the request, limiting the number of posts to 10
-    params = {
-        "limit": 10
-    }
+    if response.status_code != 200:
+        return None
 
-    # Send a GET request to the subreddit's hot posts page
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
+    r_json = response.json()
+    top_posts_json = r_json.get("data").get("children")
 
-    # Check if the response status code indicates a not-found error (404)
-    if response.status_code == 404:
-        print("None")
-        return
+    for postt in top_posts_json:
+        hot_list.append(postt.get("data").get("title"))
 
-    # Parse the JSON response and extract the 'data' section
-    results = response.json().get("data")
-
-    # Print the titles of the top 10 hottest posts
-    [print(c.get("data").get("title")) for c in results.get("children")]
+    return hot_list + recurse(subreddit, [], r_json.get("data").get("after"))
