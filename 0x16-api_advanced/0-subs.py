@@ -1,20 +1,23 @@
 #!/usr/bin/python3
-""" this areas is for the file description"""
+"""
+Query Reddit API and return the total number of subscribers
+for a given subreddit
+"""
 import requests
-import re
-
-EXTRANEOUS_WHITESPACE_REGEX = re.compile(r'[\[({] | [)}\],;:]')
 
 
 def number_of_subscribers(subreddit):
-    """ this function return the
-    numebr of subscribers on Redit"""
+    """
+        get number of subscribers for a given subreddit
+        return 0 if invalid subreddit given
+    """
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    var = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get(url, headers=var, allow_redirects=False)
-    if response.status_code == 200:
-        df = response.json()
-        sub = df['data']['subscribers']
-        return sub
-    else:
+
+    headers = requests.utils.default_headers()
+    headers.update({'User-Agent': 'My User Agent 1.0'})
+
+    r = requests.get(url, headers=headers).json()
+    subscribers = r.get('data', {}).get('subscribers')
+    if not subscribers:
         return 0
+    return subscribers
